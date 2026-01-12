@@ -9,77 +9,170 @@
     <title>Graded Exercise 2</title>
     <!-- updated external css link to show how to share it between repository -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../Q3_2GMagnesiumDifuntorum.css" />
-    <link rel="icon" href="../assets/pshslogo.png" sizes="32x32" type="image/png">
-    <script src="script.js" defer></script>
+    <link rel="icon" href="../assets/fish.png" sizes="32x32" type="image/png">
    <style>
-    body{
+      body{
+        background: linear-gradient(to right, #6a11cb, #2575fc); 
+        color: #fff;
         padding: 25px;
         font-family: arial;
-        width: 80%;
-        margin-left: 10%;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        color: #fff;
+      }
+
+      .navbar a {
+        color: #fff;
+        padding: 10px;
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 18px;
+        background: #4CAF50;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background: #45a049;
+      }
+
+      .title {
+        color: #5C6AC4;
+      }
+
+      fieldset {
+        background: rgba(0, 0, 0, 0.5);
+        border: 2px solid #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-size: 16px;
+        margin: 10px 0;
+        display: block;
+      }
+
+      input[type="text"], input[type="email"], input[type="number"], input[type="date"], select, textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: 1px solid #2a2a2a;
+        background: #f1f1f1;
+        box-sizing: border-box;
+      }
+
+      input:focus, select:focus, textarea:focus {
+        background-color: rgba(240, 238, 238, 0.914); 
+        border-color: #6a11cb; 
+      }
+
+      textarea {
+        width: 100%;
+        height: 150px;
+        resize: vertical;
+        padding: 15px;
+        border: 1px solid #2a2a2a;
+      }
+
+      button, input[type="reset"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover, input[type="reset"]:hover {
+        background-color: #45a049;
+      }
+
+      .title {
+        color: #fff;
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          width: 95%;
+          padding: 10px;
         }
 
-        .title {
-            color: #5C6AC4;
+        .navbar a {
+          font-size: 16px;
+          margin: 0 10px;
         }
-
-        fieldset:nth-child(2) {
-             margin-top: 20px;
-        }
-
-        legend {
-            background: black;
-            color: yellow;
-            padding: 5px;
-        }
-        label {
-             margin: 5%;
-        }
+      }
     </style>
   </head>
+
   <body>
-     <header>
-        <div>
-            <img src="../../assets/pshslogo.png" alt="pshs logo" 
-               title="The Official Logo" width="50px" height="50px" />
-            <h1>
-                Sample Use of HTML Form    
-            </h1>
-            <h3>by CJ Difuntorum </h3>
-        </div>
-        <nav class="navbar">
-            <a href="../../index.html"> Home </a>
-            <a href="registered.html"> Show Saved Accounts </a>
-        </nav>
+    <header>
+      <div>
+        <img src="../assets/fish.png" alt="pshs logo" 
+        title="The Official Logo" width="50px" height="50px" />
+        <h1>
+          Centralized Club/Organization Application Form    
+        </h1>
+        <h3>by CJ Difuntorum</h3>
+      </div>
+      <nav class="navbar">
+        <a href="../index.html"> Home </a>
+        <a href="../public/Registered.html"> Show Saved Information </a>
+      </nav>
     </header>
+
     <section>
-      <h1 class="title">Sign-up Page</h1>
-      <form id="dForm" action="registered.html" method="get">
+      <h1 class="title">Sign Up Now!</h1>
+      <form id="dForm" action="submit" method="post" onsubmit="return submit_()" onreset="return reset_()">
+        <!-- Personal Information Fieldset -->
         <fieldset>
-          <legend>Your Credentials</legend><br/>
-          <label> StudentID: 
-            <input type="number" name="id" id="id" required />
+          <legend>Personal Information</legend><br/>
+          <label> Student ID: 
+            <input type="number" name="ID" id="id" required onblur="input(this)"/>
           </label><br/><br/>
 
           <label> Full Name:
-            <input type="text" name="name" id="name" required />
+            <input type="text" name="Name" id="name" required onblur="input(this)"/>
           </label><br/><br/>
 
           <label> Birthday:
-            <input type="date" name="bday" id="bday" />
+            <input type="date" name="BDay" id="bday" required onblur="input(this)"/>
           </label><br/><br/>
 
           <label> Email Adress:
-            <input type="email" name="email" id="email" />
+            <input type="email" name="E-Mail" id="email" required onblur="input(this)"/>
           </label><br/><br/>
 
           <label> Mobile Phone:
-            <input type="text" name="phone" id="phone" />
+            <input type="text" name="Phone" id="phone" required onblur="input(this)"/>
           </label><br/><br/>
+        </fieldset>
 
+        <!-- Additional Information Fieldset -->
+        <fieldset>
+          <legend>Additional Information</legend><br/>
           <label> Grade Level: </label>
-            <select name="glvl" id="glvl" required>
+            <select name="GLvl" id="glvl" required onblur="input(this)">
                 <option value=""> Select your Grade Level </option>
                 <option value="n07">7</option>
                 <option value="g08">8</option>
@@ -91,28 +184,29 @@
           <br/><br/>
 
           <label> Intern/Extern :
-            <input type="radio" name="gender" value="Female" /> Intern
-            <input type="radio" name="gender" value="Male" /> Extern
-          </label><br/><br/>
+            <input type="radio" name="Home" value="Intern" required onblur="input(this)"/> Intern
+            <input type="radio" name="Home" value="Extern" /> Extern
+          </label><br/>
 
-          <label> Preferred Organization / Club: </label>
-            <select name="club" id="club" required>
+          <label> Preferred Organization/Club: </label>
+            <select name="Club" id="club" required onblur="input(this)">
               <option value=""> Select your Preferred Club </option>
-              <option value="c01">Club 1</option>
-              <option value="c02">Club 2</option>
-              <option value="c03">Club 3</option>
-              <option value="c04">Club 4</option>
-              <option value="c05">Club 5</option>
+              <option value="c01">Chemistry Club</option>
+              <option value="c02">Chess Club</option>
+              <option value="c03">Debate Club</option>
+              <option value="c04">Math Club</option>
+              <option value="c05">Swimming Club</option>
             </select>
           <br/><br/>
 
           <label> Why do you want to join?
-            <textarea name="reason" id="reason">
-              
-            </textarea>
+            <textarea name="Reason" id="reason" required rows="6" cols="50" onblur="input(this)"></textarea>
           </label><br/><br/>
         </fieldset>
 
+        <br>
+
+        <!-- Action Buttons -->
         <fieldset>
           <legend>Action Buttons</legend>
           <button type="submit"> Accept </button>
@@ -120,6 +214,26 @@
         </fieldset> 
       </form>
     </section>
+
+    <script>
+      function submit_() {
+        return confirm("Are you sure you want to submit the form?");
+      }
+
+      function reset_() {
+        return confirm("Are you sure you want to reset the form?");
+      }
+
+      function input(input) {
+        if (input.value == "") {
+          input.style.borderColor = "red"; // Mark the input in red if it's empty
+        }   
+        else {
+          input.style.borderColor = ""; // Reset the border if the input is filled
+        }
+      }
+    </script>
+
     <script src="Q3_2GMagnesiumDifuntorum.js"></script>
   </body>
 </html>
