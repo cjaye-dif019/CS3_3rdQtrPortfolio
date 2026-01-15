@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Q3 2nd Graded Exercise">
     <meta name="keywords" content="HTML Forms">
-    <meta name="author" content="AL Mendoza">
+    <meta name="author" content="CJ Difuntorum">
     <title>Graded Exercise 2</title>
     <!-- updated external css link to show how to share it between repository -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,6 +22,7 @@
 
       header {
         display: flex;
+        flex-wrap: wrap; 
         align-items: center;
         justify-content: space-between;
         background-color: rgba(0, 0, 0, 0.6);
@@ -30,8 +31,33 @@
         margin-bottom: 20px;
       }
 
+      header div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header img {
+        margin-bottom: 10px;
+      }
+
       header h1 {
         color: #fff;
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      header h3 {
+        color: #ddd;
+        margin: 5px 0 0 0;
+        font-weight: normal;
+      }
+
+      .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; 
+        margin-top: 10px;
       }
 
       .navbar a {
@@ -51,6 +77,9 @@
 
       .title {
         color: #5C6AC4;
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
       }
 
       fieldset {
@@ -72,14 +101,18 @@
         padding: 12px;
         margin: 5px 0;
         border-radius: 5px;
-        border: 1px solid #2a2a2a;
-        background: #f1f1f1;
         box-sizing: border-box;
       }
 
       input:focus, select:focus, textarea:focus {
         background-color: rgba(240, 238, 238, 0.914); 
         border-color: #6a11cb; 
+      }
+
+      input, select, textarea {
+        border: 1px solid #2a2a2a;
+        outline: none;             
+        box-sizing: border-box;      
       }
 
       textarea {
@@ -117,6 +150,21 @@
           padding: 10px;
         }
 
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+  
+        header div {
+          align-items: flex-start; 
+        }
+
+        .navbar {
+          justify-content: flex-start;
+          width: 100%;
+        }
+
         .navbar a {
           font-size: 16px;
           margin: 0 10px;
@@ -146,33 +194,33 @@
       <form id="dForm" action="submit" method="post" onsubmit="return submit_()" onreset="return reset_()">
         <!-- Personal Information Fieldset -->
         <fieldset>
-          <legend>Personal Information</legend><br/>
+          <legend>Personal Information</legend>
           <label> Student ID: 
-            <input type="number" name="ID" id="id" required onblur="input(this)"/>
+            <input type="number" name="ID" id="id" required onfocus="focusInput(this)" onblur="blurInput(this)"/>
           </label><br/><br/>
 
           <label> Full Name:
-            <input type="text" name="Name" id="name" required onblur="input(this)"/>
+            <input type="text" name="Name" id="name" required onfocus="focusInput(this)" onblur="blurInput(this)"/>
           </label><br/><br/>
 
           <label> Birthday:
-            <input type="date" name="BDay" id="bday" required onblur="input(this)"/>
+            <input type="date" name="BDay" id="bday" required onfocus="focusInput(this)" onblur="blurInput(this)"/>
           </label><br/><br/>
 
           <label> Email Adress:
-            <input type="email" name="E-Mail" id="email" required onblur="input(this)"/>
+            <input type="email" name="E-Mail" id="email" required onfocus="focusInput(this)" onblur="blurInput(this)"/>
           </label><br/><br/>
 
           <label> Mobile Phone:
-            <input type="text" name="Phone" id="phone" required onblur="input(this)"/>
-          </label><br/><br/>
+            <input type="text" name="Phone" id="phone" required onfocus="focusInput(this)" onblur="blurInput(this)"/>
+          </label><br/>
         </fieldset>
 
         <!-- Additional Information Fieldset -->
         <fieldset>
-          <legend>Additional Information</legend><br/>
+          <legend>Additional Information</legend>
           <label> Grade Level: </label>
-            <select name="GLvl" id="glvl" required onblur="input(this)">
+            <select name="GLvl" id="glvl" required onfocus="focusInput(this)" onblur="blurInput(this)">
                 <option value=""> Select your Grade Level </option>
                 <option value="n07">7</option>
                 <option value="g08">8</option>
@@ -184,12 +232,12 @@
           <br/><br/>
 
           <label> Intern/Extern :
-            <input type="radio" name="Home" value="Intern" required onblur="input(this)"/> Intern
+            <input type="radio" name="Home" value="Intern" required onfocus="focusInput(this)" onblur="blurInput(this)"/> Intern
             <input type="radio" name="Home" value="Extern" /> Extern
           </label><br/>
 
           <label> Preferred Organization/Club: </label>
-            <select name="Club" id="club" required onblur="input(this)">
+            <select name="Club" id="club" required onfocus="focusInput(this)" onblur="blurInput(this)">
               <option value=""> Select your Preferred Club </option>
               <option value="c01">Ang Lagablab</option>
               <option value="c02">Flux</option>
@@ -200,8 +248,8 @@
           <br/><br/>
 
           <label> Why do you want to join?
-            <textarea name="Reason" id="reason" required rows="6" cols="50" onblur="input(this)"></textarea>
-          </label><br/><br/>
+            <textarea name="Reason" id="reason" required rows="6" cols="50" onfocus="focusInput(this)" onblur="blurInput(this)"></textarea>
+          </label>
         </fieldset>
 
         <br>
@@ -224,29 +272,24 @@
         return confirm("Are you sure you want to reset the form?");
       }
 
-      function input(input) {
-        if (input.value == "") {
-          input.style.borderColor = "red"; 
+      function focusInput(art) {
+        art.style.background = "#d8cfff";
+        art.style.border = "2px solid #6a11cb";
+      }
+
+      function blurInput(art) {
+        art.style.background = "#f1f1f1";
+
+        if (art.value.trim() == "") {
+          art.style.border = "2px solid red";
         }   
-        else {
-          input.style.borderColor = ""; 
+
+        else  {
+          art.style.border = "1px solid #2575fc";
         }
       }
     </script>
 
-function changeColor(onfocus) {
-  console.log(onfocus)
-  art.style.backgroundColor = "black";
-  art.style.borderColor = "red";
-}
-
-function resetColor(onblur) {
-  console.log(onblur)
-  art.style.backgroundColor = "";
-  art.style.borderColor = "";
-}
-
     <script src="Q3_2GMagnesiumDifuntorum.js"></script>
   </body>
 </html>
-
