@@ -191,11 +191,11 @@
           <label> Preferred Organization/Club: </label>
             <select name="Club" id="club" required onblur="input(this)">
               <option value=""> Select your Preferred Club </option>
-              <option value="c01">Chemistry Club</option>
-              <option value="c02">Chess Club</option>
-              <option value="c03">Debate Club</option>
-              <option value="c04">Math Club</option>
-              <option value="c05">Swimming Club</option>
+              <option value="c01">Ang Lagablab</option>
+              <option value="c02">Flux</option>
+              <option value="c03">Himig Agham</option>
+              <option value="c04">Invictus</option>
+              <option value="c05">The Science Scholar</option>
             </select>
           <br/><br/>
 
@@ -226,14 +226,27 @@
 
       function input(input) {
         if (input.value == "") {
-          input.style.borderColor = "red"; // Mark the input in red if it's empty
+          input.style.borderColor = "red"; 
         }   
         else {
-          input.style.borderColor = ""; // Reset the border if the input is filled
+          input.style.borderColor = ""; 
         }
       }
     </script>
 
+function changeColor(onfocus) {
+  console.log(onfocus)
+  art.style.backgroundColor = "black";
+  art.style.borderColor = "red";
+}
+
+function resetColor(onblur) {
+  console.log(onblur)
+  art.style.backgroundColor = "";
+  art.style.borderColor = "";
+}
+
     <script src="Q3_2GMagnesiumDifuntorum.js"></script>
   </body>
 </html>
+
