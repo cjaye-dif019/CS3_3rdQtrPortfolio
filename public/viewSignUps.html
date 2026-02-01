@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Q3 3nd Graded Exercise">
+    <meta name="keywords" content="HTML Forms">
+    <meta name="author" content="CJ Difuntorum">
+    <title>View Signups</title>
+    <!-- updated external css link to show how to share it between repository -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../assets/fish.png" sizes="32x32" type="image/png">
+   <style>
+      body {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        padding: 25px;
+        font-family: Arial, sans-serif;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      header div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header img {
+        margin-bottom: 10px;
+      }
+
+      header h1 {
+        color: #fff;
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      header h3 {
+        color: #ddd;
+        margin: 5px 0 0 0;
+        font-weight: normal;
+      }
+
+      .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .navbar a {
+        color: #fff;
+        padding: 10px;
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 18px;
+        background: #4CAF50;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background: #45a049;
+      }
+
+      .title {
+        color: #FFFFFF; 
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      select {
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #f1f1f1;
+        border: 1px solid #2575fc;
+        border-radius: 5px;
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table, th, td {
+        border: 1px solid white;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4CAF50;
+      }
+
+      tr:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .message {
+        font-size: 18px;
+        color: #ff5c5c;
+        margin-top: 20px;
+      }
+
+      #totalSignups {
+        font-size: 18px;
+        margin-top: 20px;
+      }
+
+      /* Button Styling */
+      button, input[type="reset"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover, input[type="reset"]:hover {
+        background-color: #45a049;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          width: 95%;
+          padding: 10px;
+        }
+
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header div {
+          align-items: flex-start;
+        }
+
+        .navbar {
+          justify-content: flex-start;
+          width: 100%;
+        }
+
+        .navbar a {
+          font-size: 16px;
+          margin: 0 10px;
+        }
+
+        table {
+          width: 100%;
+          font-size: 14px;
+        }
+
+        th, td {
+          padding: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="../assets/fish.png" alt="pshs logo" 
+          title="The Official Logo" width="50px" height="50px" />
+          <h1>Show List of SignUps</h1>
+            <h3>by CJ Difuntorum </h3>
+      </div>
+      <nav class="navbar">
+        <a href="../index.html"> Home </a>
+        <a href="Q3_3GMagnesiumDifuntorum.html"> Sign Up Form </a>
+      </nav>
+    </header>
+
+    <section>
+      <h1 class="title">List of SignUps</h1>
+      <select id="clubFilter" onchange="filterSignups()">
+        <option value="ALL">Select a Club (or ALL to see all)</option>
+        <option value="Ang Lagablab">Ang Lagablab</option>
+        <option value="Flux">Flux</option>
+        <option value="Himig Agham">Himig Agham</option>
+        <option value="Invictus">Invictus</option>
+        <option value="The Science Scholar">The Science Scholar</option>
+      </select>
+      
+      <table id="results"></table>
+      <div id="totalSignups">Total Signups: 0</div>
+      <div id="noDataMessage" class="message" style="display:none;">No signups found for this club.</div>
+    </section>
+
+    <script>
+      // Retrieve the accounts stored in localStorage
+      let acctString = localStorage.getItem("accounts");
+      let accountList = acctString ? JSON.parse(acctString) : {};
+
+      // Get elements from the DOM
+      const resultsTable = document.getElementById("results");
+      const totalSignupsDiv = document.getElementById("totalSignups");
+      const clubFilter = document.getElementById("clubFilter");
+      const noDataMessage = document.getElementById("noDataMessage");
+
+      // Function to display the signups in a table
+      function displaySignups(filteredAccounts) {
+        resultsTable.innerHTML = `
+          <tr>
+          <th>Club</th>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Grade</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Intern/Extern</th>
+          </tr>
+         `;
+
+        if (Object.keys(filteredAccounts).length === 0) {
+          noDataMessage.style.display = "block";
+          totalSignupsDiv.textContent = "Total Signups: 0";
+        return;} 
+        
+        else {
+          noDataMessage.style.display = "none";
+        }
+
+        let totalSignups = 0;
+         for (let id in filteredAccounts) {
+            let acc = filteredAccounts[id];
+            let row = resultsTable.insertRow();
+                row.insertCell().textContent = acc.Club;
+                row.insertCell().textContent = acc.ID;
+                row.insertCell().textContent = acc.Name;
+                row.insertCell().textContent = acc.Grade;
+                row.insertCell().textContent = acc.Email;
+                row.insertCell().textContent = acc.Phone;
+                row.insertCell().textContent = acc.Home;
+                totalSignups++;
+           }
+          totalSignupsDiv.textContent = `Total Signups: ${totalSignups}`;
+        }
+
+        // Function to filter the signups based on the selected club.
+        function filterSignups() {
+          let selectedClub = clubFilter.value;
+          let filteredAccounts = {};
+
+          if (selectedClub == "ALL") {
+            filteredAccounts = accountList;
+          } 
+          else {
+            for (let id in accountList) {
+              if (accountList[id].Club === selectedClub) {
+                filteredAccounts[id] = accountList[id];
+              }
+            }
+          }
+          displaySignups(filteredAccounts);
+        }
+
+        // Displays all signups once the page loads.
+        window.onload = function() {
+            displaySignups(accountList);
+        };
+    </script>
+  </body>
+</html>
